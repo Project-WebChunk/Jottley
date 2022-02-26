@@ -73,12 +73,16 @@ class Database:
             "content": ""
         }
         self.books.update_one(
-            {'_id': bookID, 'chapters.' + chapterID + '.snippets.' + snippetID: snippet})
+            {'_id': bookID}, {'$set': {'chapters.' + chapterID + '.snippets.' + snippetID: snippet}})
         self.books.update_one(
-            {'_id': bookID, 'chapters.' + chapterID + '.snippetOrder': snippetID})
+            {'_id': bookID}, {'$push': {'chapters.' + chapterID + '.snippetOrder': snippetID}})
         
     def getBook(self, bookID):
         return self.books.find_one({'_id': bookID})
+    
+    def getSnippet(self, bookID, chapterID, snippetID):
+        book = self.books.find_one({'_id': bookID})
+        return book['chapters'][chapterID]['snippets'][snippetID]
     
     def changeChapterOrder(self, bookID, chapterOrder):
         self.books.update_one(

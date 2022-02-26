@@ -72,6 +72,33 @@ def newChapter(bookid):
         return redirect(url_for('book', bookID=bookid))
     return redirect(url_for('home'))
 
+@app.route('/book/<bookID>/<chapterID>')
+def chapter(bookID, chapterID):
+    if 'user' in session:
+        book = database.getBook(bookID)
+        chapter = book['chapters'][chapterID]
+        snippets = chapter['snippetOrder']
+        snippets_ = []
+        for snippet in snippets:
+            snippets_.append(database.getSnippet(bookID, chapterID, snippet))
+        return render_template('chapter.html', book=book, chapter=chapter, snippets=snippets_, user=session['user'])
+
+@app.route('/newSnippet/<bookid>/<chapterid>', methods=['POST'])
+def newSnippet(bookid, chapterid):
+    if 'user' in session:
+        name = request.form['name']
+        if name.replace(' ', '') == '':
+            return redirect(url_for('book', bookID=bookid))
+        database.createSnippet(bookid, chapterid, name)
+        return redirect(url_for('book', bookID=bookid))
+    return redirect(url_for('home'))
+
+@app.route('/snippet/<bookID>/<chapterID>/<snippetID>')
+def snippet(bookID, chapterID, snippetID):
+    if 'user' in session:
+        snippet = database.getSnippet(bookID, chapterID, snippetID)
+        return render_template('snippet.html', snippet=snippet, user=session['user'])
+
 def handle_authorize(remote, token, user_info):
     if database.userExists(user_info['email']):
         session['user'] = database.getUser(user_info['email'])

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{chapter['name']}} | Jottley</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/css/user.css">
+    <script src="/static/js/user.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center-mt-5-mb-5">
+            <form action="/newSnippet/{{book['_id']}}/{{chapter['_id']}}" method="post">
+                <input type="text" name="name" id="">
+                <button type="submit" class="btn btn-success">Create Snippet</button>
+            </form>
+        </div>
+        <div class="chapters" style="display: grid; align-items: stretch;justify-items: start;">
+            {% for snip in snippets %}
+                {{snip}}
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
