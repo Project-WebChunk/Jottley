@@ -7,6 +7,7 @@
     --black: #242424;
     --blurpule: #5865f2;
     --white: #ffffff;
+    --hover: #4e4949;
     --title-size: 5;
 }
 body{
@@ -29,6 +30,18 @@ button{
     font-weight: bold;
     margin: 0.5rem;
     transition-duration: 0.5s;
+}
+button:hover{
+    background-color: var(--hover);
+}
+.delete{
+    background-color: var(--red);
+}
+.save{
+    background-color: var(--cyan);
+}
+.rename{
+    background-color: var(--yellow);
 }
 input{
     padding-left: 1rem;

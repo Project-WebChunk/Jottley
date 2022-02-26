@@ -7,6 +7,7 @@
     --black: #242424;
     --blurpule: #5865f2;
     --white: #ffffff;
+    --hover: #4e4949;
     --title-size: 5;
 }
 body{
@@ -92,4 +93,16 @@ input{
 }
 .books button:hover{
     transform: scale(1.1);
+}
+button:hover{
+    background-color: var(--hover);
+}
+.delete{
+    background-color: var(--red);
+}
+.save{
+    background-color: var(--cyan);
+}
+.rename{
+    background-color: var(--yellow);
 }

@@ -6,6 +6,7 @@
     --blue: #264653;
     --black: #242424;
     --blurpule: #5865f2;
+    --hover: #4e4949;
     --white: #ffffff;
 }
 body{
@@ -42,4 +43,16 @@ button{
 }
 button:hover{
     transform: scale(1.1);
+}
+button:hover{
+    background-color: var(--hover);
+}
+.delete{
+    background-color: var(--red);
+}
+.save{
+    background-color: var(--cyan);
+}
+.rename{
+    background-color: var(--yellow);
 }

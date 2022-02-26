@@ -9,19 +9,20 @@
     <link rel="stylesheet" href="/static/css/book.css">
 </head>
 <body>
-    <div class="title">Chapters</div>
-    <button class="btn btn-danger" onclick="deleteBook()">
-        Delete Book
-    </button>
-    <button class="btn btn-warning" onclick="renameBook()">
-        Rename Book
-    </button>
-    <div class="text-center-mt-5-mb-5">
-        <form action="/newchapter/{{book['_id']}}" method="post">
-            <input type="text" name="name" id="">
-            <button type="submit" class="btn btn-success">Create Chapter</button>
-        </form>
+    <div class="title">{{book['name']}}</div>
+    <div class="actions">
+        <button class="delete" onclick="deleteBook()">
+            Delete Book
+        </button>
+        <button class="rename" onclick="renameBook()">
+            Rename Book
+        </button>
     </div>
+    <form action="/newchapter/{{book['_id']}}" method="post">
+        <input type="text" name="name" id="">
+        <button type="submit" class="save">Create Chapter</button>
+    </form>
+    <div class="head">Chapters</div>
     <div class="chapters">
         {% for chapter in chapters %}
         <a href="/book/{{book['_id']}}/{{chapter['_id']}}">

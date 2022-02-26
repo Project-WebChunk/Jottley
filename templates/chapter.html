@@ -6,55 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{chapter['name']}} | Jottley</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/static/css/user.css">
-    <script src="/static/js/user.js"></script>
+    <link rel="stylesheet" href="/static/css/chapter.css">
+    <script src="/static/js/chapter.js"></script>
 </head>
 <body>
-    <div class="container">
-        <button class="btn btn-danger" onclick="deleteChapter()">
+    <div class="title">{{chapter['name']}}</div>
+    <div class="actions">
+        <button class="delete" onclick="deleteChapter()">
             Delete Chapter
         </button>
-        <button class="btn btn-warning" onclick="renameChapter()">
+        <button class="rename" onclick="renameChapter()">
             Rename Chapter
         </button>
-        <div class="text-center-mt-5-mb-5">
-            <form action="/newSnippet/{{book['_id']}}/{{chapter['_id']}}" method="post">
-                <input type="text" name="name" id="">
-                <button type="submit" class="btn btn-success">Create Snippet</button>
-            </form>
+    </div>
+    <form action="/newSnippet/{{book['_id']}}/{{chapter['_id']}}" method="post">
+       <input type="text" name="name" id="">
+       <button type="submit" class="save">Create Snippet</button>
+    </form>
+    <div class="snips">
+        {% for snip in snippets %}
+        <div class="snip">
+            <div class="name">{{snip['name']}}</div>
+            <textarea rows="13">{{snip['content']}}</textarea>
+            <button class="delete">Delete Snippet</button>
+            <button class="save">Save Snippet</button>
+            <button class="rename">Rename Snippet</button>
         </div>
-        <div class="chapters" style="display: grid; align-items: stretch;justify-items: start;">
-            {% for snip in snippets %}
-                {{snip}}
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
 </body>
-<script>
-    function deleteChapter() {
-        agree = confirm("Are you sure you want to delete this Chapter?");
-        if (agree) {
-            $.ajax({
-                url: "/delete/chapter?bookID={{book['_id']}}&chapterID={{chapter['_id']}}",
-                method: "POST",
-                success: function(data) {
-                    window.location.href = "/book/{{book['_id']}}";
-                }
-            });
-        }
-    }
-
-    function renameChapter() {
-        name = prompt("Enter new name");
-        if (name != null) {
-            $.ajax({
-                url: "/edit/chapter?bookID={{book['_id']}}&name=" + name + "&chapterID={{chapter['_id']}}",
-                method: "POST",
-                success: function(data) {
-                    window.location.href = "/book/{{book['_id']}}/{{chapter['_id']}}";
-                }
-            });
-        }
-    }
-</script>
 </html>
