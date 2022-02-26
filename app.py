@@ -90,7 +90,7 @@ def newSnippet(bookid, chapterid):
         if name.replace(' ', '') == '':
             return redirect(url_for('book', bookID=bookid))
         database.createSnippet(bookid, chapterid, name)
-        return redirect(url_for('book', bookID=bookid))
+        return redirect(url_for('chapter', bookID=bookid, chapterID=chapterid))
     return redirect(url_for('home'))
 
 @app.route('/snippet/<bookID>/<chapterID>/<snippetID>')
