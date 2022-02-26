@@ -36,16 +36,6 @@ def changename():
         return redirect(url_for('home'))
     return redirect(url_for('home'))
 
-@app.route('/books')
-def books():
-    if 'user' in session:
-        user = session['user']
-        books = database.getUser(user['email'])['books']
-        books_ = []
-        for book in books:
-            books_.append(database.getBook(book))
-        return render_template('books.html', books=books_, user=user)
-
 @app.route('/newBook', methods=['POST'])
 def newBook():
     if 'user' in session:
@@ -102,7 +92,7 @@ def newSnippet(bookid, chapterid):
 def snippet(bookID, chapterID, snippetID):
     if 'user' in session:
         snippet = database.getSnippet(bookID, chapterID, snippetID)
-        return render_template('snippet.html', snippet=snippet, user=session['user'])
+        return render_template('snippet.html', snippet=snippet, user=session['user'], bookID=bookID, chapterID=chapterID)
 
 
 @app.route('/delete/<item>', methods=['POST'])

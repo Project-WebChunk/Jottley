@@ -4,14 +4,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- import jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="/static/css/snippet.css">
 	<title>Text Editor</title>
 </head>
 <body>
 	<div class="snip">
-		<button class="delete">Delete Snippet</button>
-		<button class="save">Save Snippet</button>
-		<button class="rename">Rename Snippet</button>
+		<button class="delete" onclick="deleteSnip()">Delete Snippet</button>
+		<button class="save" onclick="save()">Save Snippet</button>
+		<button class="rename" onclick="rename()">Rename Snippet</button>
 	</div>
 	<div class="container">
 		<div class="toolbar">
@@ -62,6 +64,46 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
+        $("#content").each(function(){
+            this.innerHTML = $(this).text();
+        });
+        function save(){
+            $.ajax({
+                url: `/updatesnip?bookID={{bookID}}&snippetID={{snippet['_id']}}&chapterID={{chapterID}}`,
+                type: 'POST',
+                data: {
+                    'content': document.getElementById('content').innerHTML
+                },
+                success: function(data){
+                    alert('Saved!');
+                }
+            });
+        }
+        function rename(){
+            name = prompt("Enter new name");
+            if (name != null) {
+                $.ajax({
+                    url: "/edit/snippet?bookID={{bookID}}&snippetID={{snippet['_id']}}&chapterID={{chapterID}}&name="+name,
+                    method: "POST",
+                    success: function(data) {
+                        window.location.href = "/book/{{bookID}}/{{chapterID}}/{{snippet['_id']}}";
+                    }
+                });
+            }
+        }
+        function deleteSnip(){
+            agree = confirm("Are you sure you want to delete this Snippet?");
+            if (agree) {
+                $.ajax({
+                    url: "/delete/snippet?bookID={{bookID}}&chapterID={{chapterID}}&snippetID={{snippet['_id']}}",
+                    method: "POST",
+                    success: function(data) {
+                        window.location.href = "/book/{{bookID}}/{{chapterID}}";
+                    }
+                });
+            }
+
+        }
 		function formatDoc(cmd, value=null){
 			if(value){
 				document.execCommand(cmd, false, value)

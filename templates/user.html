@@ -13,7 +13,7 @@
     <div>
         <div class="hello"><div class="title">Welcome</div><div class="name">{{user['username']}}</div></div>
         <div class="actions">
-            <button type="submit" class="nameButton">Change name</button>
+            <button type="submit" class="nameButton" onclick="rename()">Change name</button>
             <a href="/logout"><button class="logout">Logout</button></a>
         </div>
         <div class="books-title">Books</div>
@@ -33,4 +33,21 @@
         </div>
     </div>
 </body>
+<script>
+    function rename(){
+        name = prompt("Enter new name");
+        if (name != null) {
+            $.ajax({
+                url: "/changename",
+                type: "POST",
+                data: {
+                    name: name
+                },
+                success: function(data){
+                    $(".hello .name").text(name);
+                }
+            });
+        }
+    }
+</script>
 </html>
