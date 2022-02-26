@@ -33,32 +33,32 @@
         </a>
         {% endfor %}
     </div>
+    <script>
+        function deleteBook() {
+            agree = confirm("Are you sure you want to delete this book?");
+            if (agree) {
+                $.ajax({
+                    url: "/delete/book?bookID={{book['_id']}}",
+                    method: "POST",
+                    success: function(data) {
+                        window.location.href = "/books";
+                    }
+                });
+            }
+        }
+        
+        function renameBook() {
+            name = prompt("Enter new name");
+            if (name != null) {
+                $.ajax({
+                    url: "/edit/book?bookID={{book['_id']}}&name=" + name,
+                    method: "POST",
+                    success: function(data) {
+                        window.location.href = "/book/{{book['_id']}}";
+                    }
+                });
+            }
+        }
+    </script>
 </body>
-<script>
-    function deleteBook() {
-        agree = confirm("Are you sure you want to delete this book?");
-        if (agree) {
-            $.ajax({
-                url: "/delete/book?bookID={{book['_id']}}",
-                method: "POST",
-                success: function(data) {
-                    window.location.href = "/books";
-                }
-            });
-        }
-    }
-
-    function renameBook() {
-        name = prompt("Enter new name");
-        if (name != null) {
-            $.ajax({
-                url: "/edit/book?bookID={{book['_id']}}&name=" + name,
-                method: "POST",
-                success: function(data) {
-                    window.location.href = "/book/{{book['_id']}}";
-                }
-            });
-        }
-    }
-</script>
 </html>

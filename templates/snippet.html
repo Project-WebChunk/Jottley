@@ -1,17 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{snippet['name']}} | Jottley</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/static/css/user.css">
-    <script src="/static/js/user.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="/static/css/snippet.css">
+	<script>
+		const updateSnip = () => {
+			$.ajax({
+				url: `/updatesnip?bookID={{book['_id']}}&snipID={{snip['_id']}}`,
+				type: 'POST',
+				data: {
+					id: $('#snip-id').val(),
+					title: $('#snip-title').val(),
+					content: $('#snip-content').val(),
+					tags: $('#snip-tags').val()
+				},
+				success: (data) => {
+					if (data.success) {
+						window.location.href = '/snippet/' + data.id;
+					} else {
+						alert(data.error);
+					}
+				}
+			});
+		}
+	</script>
+	<title>Text Editor</title>
 </head>
 <body>
-    <div class="container">
-        {{snippet}}
-    </div>
+	<div class="snip">
+		<button class="delete">Delete Snippet</button>
+		<button class="save">Save Snippet</button>
+		<button class="rename">Rename Snippet</button>
+	</div>
+	<div class="container">
+		<div class="toolbar">
+			<div class="head">
+				<select onchange="formatDoc('formatBlock', this.value); this.selectedIndex=0;">
+					<option value="" selected="" hidden="" disabled="">Format</option>
+					<option value="h1">Heading 1</option>
+					<option value="h2">Heading 2</option>
+					<option value="h3">Heading 3</option>
+					<option value="h4">Heading 4</option>
+					<option value="h5">Heading 5</option>
+					<option value="h6">Heading 6</option>
+					<option value="p">Paragraph</option>
+				</select>
+				<select onchange="formatDoc('fontSize', this.value); this.selectedIndex=0;">
+					<option value="" selected="" hidden="" disabled="">Font size</option>
+					<option value="1">Extra small</option>
+					<option value="2">Small</option>
+					<option value="3">Regular</option>
+					<option value="4">Medium</option>
+					<option value="5">Large</option>
+					<option value="6">Extra Large</option>
+					<option value="7">Big</option>
+				</select>
+			</div>
+			<div class="btn-toolbar">
+				<button onclick="formatDoc('undo')"><i class='bx bx-undo' ></i></button>
+				<button onclick="formatDoc('redo')"><i class='bx bx-redo' ></i></button>
+				<button onclick="formatDoc('bold')"><i class='bx bx-bold'></i></button>
+				<button onclick="formatDoc('underline')"><i class='bx bx-underline' ></i></button>
+				<button onclick="formatDoc('italic')"><i class='bx bx-italic' ></i></button>
+				<button onclick="formatDoc('strikeThrough')"><i class='bx bx-strikethrough' ></i></button>
+				<button onclick="formatDoc('justifyLeft')"><i class='bx bx-align-left' ></i></button>
+				<button onclick="formatDoc('justifyCenter')"><i class='bx bx-align-middle' ></i></button>
+				<button onclick="formatDoc('justifyRight')"><i class='bx bx-align-right' ></i></button>
+				<button onclick="formatDoc('justifyFull')"><i class='bx bx-align-justify' ></i></button>
+				<button onclick="formatDoc('insertOrderedList')"><i class='bx bx-list-ol' ></i></button>
+				<button onclick="formatDoc('insertUnorderedList')"><i class='bx bx-list-ul' ></i></button>
+				<button onclick="addLink()"><i class='bx bx-link' ></i></button>
+				<button onclick="formatDoc('unlink')"><i class='bx bx-unlink' ></i></button>
+				<button id="show-code" data-active="false">&lt;/&gt;</button>
+			</div>
+		</div>
+		<div id="content" contenteditable="true" spellcheck="false">
+			{{snippet['content']}}
+		</div>
+	</div>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script>
+		function formatDoc(cmd, value=null){
+			if(value){
+				document.execCommand(cmd, false, value)
+			}else{
+				document.execCommand(cmd)
+			}
+		}
+		function addLink(){
+			const url = prompt('Insert url')
+			formatDoc('createLink', url)
+		}
+		const content = document.getElementById('content')
+		content.addEventListener('mouseenter', ()=>{
+			const a = content.querySelectorAll('a')
+			a.forEach(item=>{
+				item.addEventListener('mouseenter', ()=>{
+					content.setAttribute('contenteditable', false)
+					item.target = '_blank'
+				})
+				item.addEventListener('mouseleave', ()=>{
+					content.setAttribute('contenteditable', true)
+				})
+			})
+		})
+		
+		const showCode = document.getElementById('show-code')
+		let active = false
+		showCode.addEventListener('click', ()=>{
+			showCode.dataset.active = !active
+			active = !active
+			if(active){
+				content.textContent = content.innerHTML
+				content.setAttribute('contenteditable', false)
+			}else{
+				content.innerHTML = content.textContent
+				content.setAttribute('contenteditable', true)
+			}
+		})
+		
+		const filename = document.getElementById('filename');
+		function fileHandle(value){
+			if(value === 'new'){
+				content.innerHTML = ''
+				filename.value = `undefined`
+			}else if(value === 'txt'){
+				const blob = new Blob([content.innerText])
+				const url = URL.createObjectURL(blob)
+				const link = document.createElement('a')
+				link.href = url
+				link.download = `${filename.value}.txt`
+				link.click()
+			}else if(value === 'pdf'){
+				html2pdf(content).save(filename.value)
+			}
+		}
+	</script>
 </body>
 </html>

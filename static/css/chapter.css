@@ -94,9 +94,20 @@ textarea{
     margin: 1rem;
     width: 300px;
     transition-duration: 0.5s;
-    height: 30rem;
+}
+.snip:hover{
+    transform: scale(1.1);
 }
 .name{
+    font-size: 2rem;
+    text-align: center;
+    /* don't touch it works */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* -------------------- */
+}
+.description{
     font-size: 2rem;
     text-align: center;
     /* don't touch it works */

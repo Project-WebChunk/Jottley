@@ -7,7 +7,6 @@
     <title>{{chapter['name']}} | Jottley</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/static/css/chapter.css">
-    <script src="/static/js/chapter.js"></script>
 </head>
 <body>
     <div class="title">{{chapter['name']}}</div>
@@ -25,14 +24,37 @@
     </form>
     <div class="snips">
         {% for snip in snippets %}
-        <div class="snip">
+        <a href="/book/{{book['_id']}}/{{chapter['_id']}}/{{snip['_id']}}"><div class="snip">
             <div class="name">{{snip['name']}}</div>
-            <textarea rows="13">{{snip['content']}}</textarea>
-            <button class="delete">Delete Snippet</button>
-            <button class="save">Save Snippet</button>
-            <button class="rename">Rename Snippet</button>
-        </div>
+            <div class="description">{{snip['content']}}</div>
+        </div></a>
         {% endfor %}
     </div>
+    <script>
+        function deleteChapter() {
+            agree = confirm("Are you sure you want to delete this Chapter?");
+            if (agree) {
+                $.ajax({
+                    url: "/delete/chapter?bookID={{book['_id']}}&chapterID={{chapter['_id']}}",
+                    method: "POST",
+                    success: function(data) {
+                        window.location.href = "/book/{{book['_id']}}";
+                    }
+                });
+            }
+        }
+        function renameChapter() {
+            name = prompt("Enter new name");
+            if (name != null) {
+                $.ajax({
+                    url: "/edit/chapter?bookID={{book['_id']}}&name=" + name + "&chapterID={{chapter['_id']}}",
+                    method: "POST",
+                    success: function(data) {
+                        window.location.href = "/book/{{book['_id']}}/{{chapter['_id']}}";
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>
