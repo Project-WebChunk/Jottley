@@ -90,3 +90,29 @@ class Database:
     
     def changeSnippetOrder(self, bookID, chapterID, snippetOrder):
         self.books.update_one({'_id': bookID}, {'$set': {'chapters.' + chapterID + '.snippetOrder': snippetOrder}})
+        
+    def deleteBook(self, bookID):
+        self.books.delete_one({'_id': bookID})
+        self.users.update_one({'_id': book['by']}, {'$pull': {'books': bookID}})
+    
+    def deleteChapter(self, bookID, chapterID):
+        self.books.update_one({'_id': bookID}, {'$unset': {'chapters.' + chapterID: 1}})
+        self.books.update_one({'_id': bookID}, {'$pull': {'chapterOrder': chapterID}})
+    
+    def deleteSnippet(self, bookID, chapterID, snippetID):
+        self.books.update_one({'_id': bookID}, {'$unset': {'chapters.' + chapterID + '.snippets.' + snippetID: 1}})
+        self.books.update_one({'_id': bookID}, {'$pull': {'chapters.' + chapterID + '.snippetOrder': snippetID}})
+    
+    def updateSnippetContent(self, bookID, chapterID, snippetID, content):
+        self.books.update_one({'_id': bookID}, {'$set': {'chapters.' + chapterID + '.snippets.' + snippetID + '.content': content}})
+        
+    def updateSnippet(self, bookID, chapterID, snippetID, name):
+        self.books.update_one({'_id': bookID}, {'$set': {'chapters.' + chapterID + '.snippets.' + snippetID + '.name': name}})
+    
+    def updateChapter(self, bookID, chapterID, name):
+        self.books.update_one({'_id': bookID}, {'$set': {'chapters.' + chapterID + '.name': name}})
+        
+    def updateBook(self, bookID, name):
+        self.books.update_one({'_id': bookID}, {'$set': {'name': name}})
+    
+        

@@ -99,6 +99,50 @@ def snippet(bookID, chapterID, snippetID):
         snippet = database.getSnippet(bookID, chapterID, snippetID)
         return render_template('snippet.html', snippet=snippet, user=session['user'])
 
+
+@app.route('/delete/<item>', methods=['POST'])
+def delete(item):
+    if 'user' in session:
+        if item == 'book':
+            bookID = request.args.get('bookID')
+            database.deleteBook(bookID)
+            return redirect(url_for('books'))
+        elif item == 'chapter':
+            bookID = request.args.get('bookID')
+            chapterID = request.args.get('chapterID')
+            database.deleteChapter(bookID, chapterID)
+            return redirect(url_for('book', bookID=bookID))
+        elif item == 'snippet':
+            bookID = request.args.get('bookID')
+            chapterID = request.args.get('chapterID')
+            snippetID = request.args.get('snippetID')
+            database.deleteSnippet(bookID, chapterID, snippetID)
+            return redirect(url_for('chapter', bookID=bookID, chapterID=chapterID))
+    return redirect(url_for('home'))
+
+@app.route('/edit/<item>', methods=['POST'])
+def edit(item):
+    if 'user' in session:
+        if item == 'book':
+            bookID = request.args.get('bookID')
+            name = request.form['name']
+            database.updateBook(bookID, name)
+            return redirect(url_for('book', bookID=bookID))
+        elif item == 'chapter':
+            bookID = request.args.get('bookID')
+            chapterID = request.args.get('chapterID')
+            name = request.form['name']
+            database.updateChapter(bookID, chapterID, name)
+            return redirect(url_for('chapter', bookID=bookID, chapterID=chapterID))
+        elif item == 'snippet':
+            bookID = request.args.get('bookID')
+            chapterID = request.args.get('chapterID')
+            snippetID = request.args.get('snippetID')
+            name = request.form['name']
+            database.updateSnippet(bookID, chapterID, snippetID, name)
+            return redirect(url_for('snippet', bookID=bookID, chapterID=chapterID, snippetID=snippetID))
+    return redirect(url_for('home'))
+
 def handle_authorize(remote, token, user_info):
     if database.userExists(user_info['email']):
         session['user'] = database.getUser(user_info['email'])
