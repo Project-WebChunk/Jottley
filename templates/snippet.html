@@ -5,27 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" href="/static/css/snippet.css">
-	<script>
-		const updateSnip = () => {
-			$.ajax({
-				url: `/updatesnip?bookID={{book['_id']}}&snipID={{snip['_id']}}`,
-				type: 'POST',
-				data: {
-					id: $('#snip-id').val(),
-					title: $('#snip-title').val(),
-					content: $('#snip-content').val(),
-					tags: $('#snip-tags').val()
-				},
-				success: (data) => {
-					if (data.success) {
-						window.location.href = '/snippet/' + data.id;
-					} else {
-						alert(data.error);
-					}
-				}
-			});
-		}
-	</script>
 	<title>Text Editor</title>
 </head>
 <body>
