@@ -10,6 +10,12 @@
 </head>
 <body>
     <div class="title">Chapters</div>
+    <button class="btn btn-danger" onclick="deleteBook()">
+        Delete Book
+    </button>
+    <button class="btn btn-warning" onclick="renameBook()">
+        Rename Book
+    </button>
     <div class="text-center-mt-5-mb-5">
         <form action="/newchapter/{{book['_id']}}" method="post">
             <input type="text" name="name" id="">
@@ -27,4 +33,31 @@
         {% endfor %}
     </div>
 </body>
+<script>
+    function deleteBook() {
+        agree = confirm("Are you sure you want to delete this book?");
+        if (agree) {
+            $.ajax({
+                url: "/delete/book?bookID={{book['_id']}}",
+                method: "POST",
+                success: function(data) {
+                    window.location.href = "/books";
+                }
+            });
+        }
+    }
+
+    function renameBook() {
+        name = prompt("Enter new name");
+        if (name != null) {
+            $.ajax({
+                url: "/edit/book?bookID={{book['_id']}}&name=" + name,
+                method: "POST",
+                success: function(data) {
+                    window.location.href = "/book/{{book['_id']}}";
+                }
+            });
+        }
+    }
+</script>
 </html>

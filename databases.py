@@ -92,6 +92,7 @@ class Database:
         self.books.update_one({'_id': bookID}, {'$set': {'chapters.' + chapterID + '.snippetOrder': snippetOrder}})
         
     def deleteBook(self, bookID):
+        book = self.books.find_one({'_id': bookID})
         self.books.delete_one({'_id': bookID})
         self.users.update_one({'_id': book['by']}, {'$pull': {'books': bookID}})
     

@@ -123,22 +123,23 @@ def delete(item):
 @app.route('/edit/<item>', methods=['POST'])
 def edit(item):
     if 'user' in session:
+        name = request.args.get('name')
+        print(name)
+        if name == None or name == "null" or name.replace(' ', '') == '':
+            return redirect(url_for('home'))
         if item == 'book':
             bookID = request.args.get('bookID')
-            name = request.form['name']
             database.updateBook(bookID, name)
             return redirect(url_for('book', bookID=bookID))
         elif item == 'chapter':
             bookID = request.args.get('bookID')
             chapterID = request.args.get('chapterID')
-            name = request.form['name']
             database.updateChapter(bookID, chapterID, name)
             return redirect(url_for('chapter', bookID=bookID, chapterID=chapterID))
         elif item == 'snippet':
             bookID = request.args.get('bookID')
             chapterID = request.args.get('chapterID')
             snippetID = request.args.get('snippetID')
-            name = request.form['name']
             database.updateSnippet(bookID, chapterID, snippetID, name)
             return redirect(url_for('snippet', bookID=bookID, chapterID=chapterID, snippetID=snippetID))
     return redirect(url_for('home'))
