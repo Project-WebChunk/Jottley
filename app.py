@@ -120,6 +120,17 @@ def delete(item):
             return redirect(url_for('chapter', bookID=bookID, chapterID=chapterID))
     return redirect(url_for('home'))
 
+@app.route('/updatesnip', methods=['POST'])
+def updatesnip():
+    if 'user' in session:
+        bookID = request.args.get('bookID')
+        chapterID = request.args.get('chapterID')
+        snippetID = request.args.get('snippetID')
+        content = request.form['content']
+        database.updateSnippetContent(bookID, chapterID, snippetID, content)
+        return redirect(url_for('chapter', bookID=bookID, chapterID=chapterID))
+    return redirect(url_for('home'))
+
 @app.route('/edit/<item>', methods=['POST'])
 def edit(item):
     if 'user' in session:
