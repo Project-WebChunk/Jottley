@@ -6,21 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jottley Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/static/css/books.css">
+    <link rel="stylesheet" href="/static/css/book.css">
 </head>
 <body>
-    <div class="container">
-        <div class="text-center-mt-5-mb-5">
-            <form action="/newchapter/{{book['_id']}}" method="post">
-                <input type="text" name="name" id="">
-                <button type="submit" class="btn btn-success">Create Chapter</button>
-            </form>
+    <div class="title">Chapters</div>
+    <div class="text-center-mt-5-mb-5">
+        <form action="/newchapter/{{book['_id']}}" method="post">
+            <input type="text" name="name" id="">
+            <button type="submit" class="btn btn-success">Create Chapter</button>
+        </form>
+    </div>
+    <div class="chapters">
+        {% for chapter in chapters %}
+        <div class="chapter">
+            <div class="name">{{chapter["name"]}}</div>
+            <div class="snip">Snips: {{chapter["snippets"] | length}}</div>
         </div>
-        <div class="chapters" style="display: grid; align-items: stretch;justify-items: start;">
-            {% for chapter in chapters %}
-                {{chapter}}
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
 </body>
 </html>

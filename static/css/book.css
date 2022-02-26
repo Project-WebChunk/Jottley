@@ -55,23 +55,23 @@ form{
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    margin-top: 1rem;
 }
-.books{
+.chapters{
     display: grid;
     grid-template-columns: auto auto auto;
     margin: 2rem;
 }
-.book{
+.chapter{
     background-color: var(--blue);
     padding: 1rem;
     color: var(--orange);
     border: 0.5rem var(--blurpule) solid;
-    border-radius: 1.5rem;
     margin: 1rem;
     width: 300px;
     transition-duration: 0.5s;
 }
-.book:hover{
+.chapter:hover{
     transform: scale(1.1);
 }
 .name{
