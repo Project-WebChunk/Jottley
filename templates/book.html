@@ -18,10 +18,12 @@
     </div>
     <div class="chapters">
         {% for chapter in chapters %}
-        <div class="chapter">
-            <div class="name">{{chapter["name"]}}</div>
-            <div class="snip">Snips: {{chapter["snippets"] | length}}</div>
-        </div>
+        <a href="/book/{{book['_id']}}/{{chapter['_id']}}">
+            <div class="chapter">
+                <div class="name">{{chapter["name"]}}</div>
+                <div class="snip">Snips: {{chapter["snippets"] | length}}</div>
+            </div>
+        </a>
         {% endfor %}
     </div>
 </body>
