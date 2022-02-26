@@ -11,7 +11,25 @@ database = Database(app.config['MONGO_URI'])
 
 @app.route('/')
 def home():
+    if 'user' in session:
+        return render_template('user.html', user=session['user'])
     return render_template('index.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('home'))
+
+@app.route('/changename', methods=['POST'])
+def changename():
+    if 'user' in session:
+        name = request.form['name']
+        database.updateName(session['user']['email'], name)
+        email = session['user']['email']
+        session.pop('user', None)
+        session['user'] = database.getUser(email)
+        return redirect(url_for('home'))
+    return redirect(url_for('home'))
 
 def handle_authorize(remote, token, user_info):
     if database.userExists(user_info['email']):
