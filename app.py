@@ -93,7 +93,7 @@ def newSnippet(bookid, chapterid):
         return redirect(url_for('chapter', bookID=bookid, chapterID=chapterid))
     return redirect(url_for('home'))
 
-@app.route('/snippet/<bookID>/<chapterID>/<snippetID>')
+@app.route('/book/<bookID>/<chapterID>/<snippetID>')
 def snippet(bookID, chapterID, snippetID):
     if 'user' in session:
         snippet = database.getSnippet(bookID, chapterID, snippetID)
