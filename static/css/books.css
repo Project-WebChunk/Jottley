@@ -12,50 +12,23 @@
 body{
     background-color: var(--black);
 }
-.title{
-    color: var(--red);
+a{
+    text-decoration: none;
 }
-.name{
-    color: var(--orange);
-    padding-left: calc(var(--title-size)* 4px);
-}
-.hello{
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    font-size: calc(var(--title-size)* 1rem);
-}
-.newName{
-    margin: 1rem;
-}
-form{
-    margin: 1rem;
-}
-.actions{
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    align-items: baseline;
-}
-.actions button{
+button{
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     cursor: pointer;
+    background-color: var(--blurpule);
     border-style: hidden;
     border-radius: 1.5rem;
     color: var(--white);
     font-size: 1rem;
     font-weight: bold;
+    margin: 0.5rem;
     transition-duration: 0.5s;
-}
-.nameButton{
-    background-color: var(--blurpule);
-}
-.logout{
-    background-color: var(--red);
 }
 input{
     padding-left: 1rem;
@@ -71,25 +44,35 @@ input{
     border: 2px solid var(--blurpule);
     transition-duration: 0.5s;
 }
-.actions button:hover{
-    transform: scale(1.1);
+.title{
+    font-size: 5rem;
+    text-align: center;
+    color: var(--red);
+    font-weight: bold;
+}
+form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 .books{
-    display: flex;
-    justify-content: center;
-    margin: 1rem;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 2rem;
 }
-.books button{
-    padding: 3rem;
-    background-color: var(--blurpule);
-    border-style: hidden;
-    cursor: pointer;
-    color: var(--white);
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 1.5rem;
+.book{
+    background-color: var(--blue);
+    padding: 1rem;
+    color: var(--orange);
+    border: 0.5rem var(--blurpule) solid;
+    border-radius: 1rem;
+    margin: 1rem;
     transition-duration: 0.5s;
 }
-.books button:hover{
+.book:hover{
     transform: scale(1.1);
+}
+.name{
+    font-size: 3rem;
 }

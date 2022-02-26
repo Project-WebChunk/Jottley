@@ -6,28 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jottley Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/static/css/user.css">
-    <script src="/static/js/user.js"></script>
+    <link rel="stylesheet" href="/static/css/books.css">
 </head>
 <body>
-    <div class="container">
-        <div class="text-center-mt-5-mb-5">
-            <form action="/newBook" method="post">
-                <input type="text" name="name" id="">
-                <button type="submit" class="btn btn-success">Create</button>
-            </form>
-        </div>
-        <div class="books" style="display: grid;align-items: stretch;justify-items: start;">
-            {% for book in books %}
-            <a href="/book/{{book['_id']}}">
-                <div style="background-color: white; padding: 5px;">
-                    {{book['name']}} <br>
-                    <small>Chapters: {{book['chapterOrder'] | length}}</small>
-                </div>
-            </a>
-    
-            {% endfor %}
-        </div>
+    <div class="title">Books</div>
+    <form action="/newBook" method="post">
+        <input type="text" name="name" id="">
+        <button type="submit">Create Chapter</button>
+    </form>
+    <div class="books">
+        {% for book in books %}
+        <a href="/book/{{book['_id']}}">
+            <div class="book">
+                <div class="name">{{book['name']}}</div>
+                <div class="chapter">Chapters: {{book['chapterOrder'] | length}}</div>
+            </div>
+        </a>
+        {% endfor %}
     </div>
 </body>
 </html>
