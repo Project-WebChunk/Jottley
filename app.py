@@ -12,7 +12,12 @@ database = Database(app.config['MONGO_URI'])
 @app.route('/')
 def home():
     if 'user' in session:
-        return render_template('user.html', user=session['user'])
+        user = session['user']
+        books = database.getUser(user['email'])['books']
+        books_ = []
+        for book in books:
+            books_.append(database.getBook(book))
+        return render_template('user.html', books=books_, user=user)
     return render_template('index.html')
 
 @app.route('/logout')

@@ -13,6 +13,9 @@
 body{
     background-color: var(--black);
 }
+a{
+    text-decoration: none;
+}
 .title{
     color: var(--red);
 }
@@ -28,9 +31,6 @@ body{
     font-size: calc(var(--title-size)* 1rem);
 }
 .newName{
-    margin: 1rem;
-}
-form{
     margin: 1rem;
 }
 .actions{
@@ -105,4 +105,58 @@ button:hover{
 }
 .rename{
     background-color: var(--yellow);
+}
+button{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+    background-color: var(--blurpule);
+    border-style: hidden;
+    border-radius: 1.5rem;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0.5rem;
+    transition-duration: 0.5s;
+}
+.books-title{
+    font-size: 4rem;
+    text-align: center;
+    color: var(--red);
+    font-weight: bold;
+    margin-top: 5rem;
+}
+form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.books{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 2rem;
+}
+.book{
+    background-color: var(--blue);
+    padding: 1rem;
+    color: var(--orange);
+    border: 0.5rem var(--blurpule) solid;
+    border-radius: 1.5rem;
+    margin: 1rem;
+    width: 300px;
+    transition-duration: 0.5s;
+}
+.book:hover{
+    transform: scale(1.1);
+}
+.book-name{
+    font-size: 2rem;
+    /* don't touch it works */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* -------------------- */
 }

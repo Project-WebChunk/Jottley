@@ -13,14 +13,23 @@
     <div>
         <div class="hello"><div class="title">Welcome</div><div class="name">{{user['username']}}</div></div>
         <div class="actions">
-            <form action="/changename" method="post">
-                <input type="text" name="name" class="newName">
-                <button type="submit" class="nameButton">Change name</button>
-            </form>
+            <button type="submit" class="nameButton">Change name</button>
             <a href="/logout"><button class="logout">Logout</button></a>
         </div>
+        <div class="books-title">Books</div>
+        <form action="/newBook" method="post">
+            <input type="text" name="name" id="">
+            <button type="submit" class="save">Create Book</button>
+        </form>
         <div class="books">
-            <a href="/books"><button>Go to Books</button></a>
+            {% for book in books %}
+            <a href="/book/{{book['_id']}}">
+                <div class="book">
+                    <div class="book-name">{{book['name']}}</div>
+                    <div class="book-chapter">Chapters: {{book['chapterOrder'] | length}}</div>
+                </div>
+            </a>
+            {% endfor %}
         </div>
     </div>
 </body>
