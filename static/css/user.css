@@ -1,0 +1,74 @@
+:root{
+    --red: #E76F51;
+    --orange: #F4A261;
+    --yellow: #E9C46A;
+    --cyan: #2A9D8F;
+    --blue: #264653;
+    --black: #242424;
+    --blurpule: #5865f2;
+    --white: #ffffff;
+    --title-size: 5;
+}
+body{
+    background-color: var(--black);
+}
+.title{
+    color: var(--red);
+}
+.name{
+    color: var(--orange);
+    padding-left: calc(var(--title-size)* 4px);
+}
+.hello{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: calc(var(--title-size)* 1rem);
+}
+.newName{
+    margin: 1rem;
+}
+form{
+    margin: 1rem;
+}
+.actions{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    align-items: baseline;
+}
+button{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    cursor: pointer;
+    background-color: var(--blurpule);
+    border-style: hidden;
+    border-radius: 1.5rem;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: bold;
+    transition-duration: 0.5s;
+}
+input{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: var(--black);
+    border-style: hidden;
+    border-radius: 1.5rem;
+    color: var(--orange);
+    font-size: 1rem;
+    font-weight: bold;
+    border: 2px solid var(--blurpule);
+    transition-duration: 0.5s;
+}
+.logout{
+    background-color: var(--red);
+}
+button:hover{
+    transform: scale(1.1);
+}
