@@ -31,6 +31,47 @@ def changename():
         return redirect(url_for('home'))
     return redirect(url_for('home'))
 
+@app.route('/books')
+def books():
+    if 'user' in session:
+        user = session['user']
+        books = database.getUser(user['email'])['books']
+        books_ = []
+        for book in books:
+            books_.append(database.getBook(book))
+        return render_template('books.html', books=books_, user=user)
+
+@app.route('/newBook', methods=['POST'])
+def newBook():
+    if 'user' in session:
+        name = request.form['name']
+        if name.replace(' ', '') == '':
+            return redirect(url_for('books'))
+        database.createBook(session['user']['_id'], name)
+        return redirect(url_for('books'))
+    return redirect(url_for('home'))
+
+@app.route('/book/<bookID>')
+def book(bookID):
+    if 'user' in session:
+        book = database.getBook(bookID)
+        chapters = book['chapterOrder']
+        chapters_ = []
+        for chapter in chapters:
+            chapters_.append(database.getBook(bookID)['chapters'][chapter])
+        return render_template('book.html', book=book, chapters=chapters_, user=session['user'])
+    return redirect(url_for('home'))
+
+@app.route('/newchapter/<bookid>', methods=['POST'])
+def newChapter(bookid):
+    if 'user' in session:
+        name = request.form['name']
+        if name.replace(' ', '') == '':
+            return redirect(url_for('book', bookID=bookid))
+        database.createChapter(bookid, name)
+        return redirect(url_for('book', bookID=bookid))
+    return redirect(url_for('home'))
+
 def handle_authorize(remote, token, user_info):
     if database.userExists(user_info['email']):
         session['user'] = database.getUser(user_info['email'])
