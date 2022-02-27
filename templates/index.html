@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jottley Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/index.css">
     <link rel="icon" href="/static/Jottley.png">
-    <script src="/static/js/index.js"></script>
 </head>
 <body>
     <div class="image"><img src="/static/Jottley.png" alt="Jottley" width="200"></div>
@@ -27,5 +29,15 @@
             Sign In / Sign Up with Google
         </button>
     </div>
+    <script>
+        $(document).ready(()=>{
+            $(".discord").click(()=>{
+                window.location = '/login/discord';
+            })
+            $(".google").click(()=>{
+                window.location = '/login/google';
+            })
+        })
+    </script>
 </body>
 </html>

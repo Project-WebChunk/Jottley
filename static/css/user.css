@@ -10,6 +10,9 @@
     --hover: #4e4949;
     --title-size: 5;
 }
+*{
+    font-family: 'Ubuntu', sans-serif;
+}
 body{
     background-color: var(--black);
 }

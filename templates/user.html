@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Jottley Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/user.css">
     <link rel="icon" href="/static/Jottley.png">
 </head>
@@ -32,26 +35,26 @@
         </a>
         {% endfor %}
     </div>
-</body>
-<script>
-    function rename(){
-        name = prompt("Enter new name");
-        if (name != null) {
-            $.ajax({
-                url: "/changename",
-                type: "POST",
-                data: {
-                    name: name
-                },
-                success: function(data){
-                    $(".hello .name").text(name);
-                }
-            });
+    <script>
+        function rename(){
+            name = prompt("Enter new name");
+            if (name != null) {
+                $.ajax({
+                    url: "/changename",
+                    type: "POST",
+                    data: {
+                        name: name
+                    },
+                    success: function(data){
+                        $(".hello .name").text(name);
+                    }
+                });
+            }
         }
-    }
-    function copyKey(){
-        navigator.clipboard.writeText("{{user['key']}}");
-        alert("Copied User Key!\nIf it didn't work: {{user['key']}}");
-    }
-</script>
+        function copyKey(){
+            navigator.clipboard.writeText("{{user['key']}}");
+            alert("Copied User Key!\nIf it didn't work: {{user['key']}}");
+        }
+    </script>
+</body>
 </html>
