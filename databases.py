@@ -8,7 +8,7 @@ import requests
 class Database:
     def __init__(self, URL):
         self.client = MongoClient(URL)
-        self.db = self.client.Snipper
+        self.db = self.client.Jottley
         self.users = self.db.users
         self.books = self.db.books
 
