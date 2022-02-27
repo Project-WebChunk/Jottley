@@ -40,7 +40,7 @@ class Database:
         return "".join(random.choice("0123456789ABCDEF") for i in range(10))
 
     def createBook(self, id, name):
-        bookID = str(uuid4())
+        bookID = self.generateID()
         book = {
             "_id": bookID,
             "name": name,
