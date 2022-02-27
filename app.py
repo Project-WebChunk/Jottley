@@ -41,9 +41,9 @@ def newBook():
     if 'user' in session:
         name = request.form['name']
         if name.replace(' ', '') == '':
-            return redirect(url_for('books'))
+            return redirect(url_for('home'))
         database.createBook(session['user']['_id'], name)
-        return redirect(url_for('books'))
+        return redirect(url_for('home'))
     return redirect(url_for('home'))
 
 @app.route('/book/<bookID>')
