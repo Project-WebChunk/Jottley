@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 from authlib.integrations.flask_client import OAuth
-from loginpass import create_flask_blueprint, Discord
+from loginpass import create_flask_blueprint, Discord, Google
 from databases import Database
 
 app = Flask(__name__)
 oauth = OAuth(app)
 app.config.from_pyfile('config.py')
-backends = [Discord]
+backends = [Discord, Google]
 database = Database(app.config['MONGO_URI'])
 
 @app.route('/')
