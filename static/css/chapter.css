@@ -91,6 +91,7 @@ textarea{
     padding: 1rem;
     color: var(--orange);
     border: 0.5rem var(--blurpule) solid;
+    border-radius: 1.5rem;
     margin: 1rem;
     width: 300px;
     transition-duration: 0.5s;
@@ -99,15 +100,6 @@ textarea{
     transform: scale(1.1);
 }
 .name{
-    font-size: 2rem;
-    text-align: center;
-    /* don't touch it works */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* -------------------- */
-}
-.description{
     font-size: 2rem;
     text-align: center;
     /* don't touch it works */

@@ -26,7 +26,6 @@
         {% for snip in snippets %}
         <a href="/book/{{book['_id']}}/{{chapter['_id']}}/{{snip['_id']}}"><div class="snip">
             <div class="name">{{snip['name']}}</div>
-            <div class="description">{{snip['content']}}</div>
         </div></a>
         {% endfor %}
     </div>

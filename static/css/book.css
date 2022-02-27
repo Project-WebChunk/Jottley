@@ -80,6 +80,7 @@ form{
     padding: 1rem;
     color: var(--orange);
     border: 0.5rem var(--blurpule) solid;
+    border-radius: 1.5rem;
     margin: 1rem;
     width: 300px;
     transition-duration: 0.5s;
