@@ -101,7 +101,7 @@ def delete(item):
         if item == 'book':
             bookID = request.args.get('bookID')
             database.deleteBook(bookID)
-            return redirect(url_for('books'))
+            return redirect(url_for('home'))
         elif item == 'chapter':
             bookID = request.args.get('bookID')
             chapterID = request.args.get('chapterID')
