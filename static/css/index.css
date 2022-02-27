@@ -6,6 +6,7 @@
     --blue: #264653;
     --black: #242424;
     --blurpule: #5865f2;
+    --google: #3f7ee8;
     --hover: #4e4949;
     --white: #ffffff;
 }
@@ -33,13 +34,19 @@ body{
 button{
     padding: 1rem;
     cursor: pointer;
-    background-color: var(--blurpule);
     border-style: hidden;
     border-radius: 1.5rem;
+    margin: 2rem;
     color: var(--white);
     font-size: 1rem;
     font-weight: bold;
     transition-duration: 0.5s;
+}
+.discord{
+    background-color: var(--blurpule);
+}
+.google{
+    background-color: var(--google);
 }
 button:hover{
     transform: scale(1.1);
