@@ -7,13 +7,13 @@
     <title>Jottley Home</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/static/css/user.css">
-    <script src="/static/js/user.js"></script>
 </head>
 <body>
     <div>
         <div class="hello"><div class="title">Welcome</div><div class="name">{{user['username']}}</div></div>
         <div class="actions">
             <button type="submit" class="nameButton" onclick="rename()">Change name</button>
+            <button class="copykey" onclick="copyKey()">Copy Key</button>
             <a href="/logout"><button class="logout">Logout</button></a>
         </div>
         <div class="books-title">Books</div>
@@ -48,6 +48,10 @@
                 }
             });
         }
+    }
+    function copyKey(){
+        navigator.clipboard.writeText("{{user['key']}}");
+        alert("Copied User Key!")
     }
 </script>
 </html>
