@@ -160,3 +160,10 @@ form{
     text-overflow: ellipsis;
     /* -------------------- */
 }
+.image{
+    display: flex;
+    justify-content: center;
+}
+img{
+    border-radius: 50%;
+}
