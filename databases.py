@@ -19,6 +19,7 @@ class Database:
             '_id': id,
             'username': name,
             'email': email,
+            'key': self.generateID(),
             'created': datetime.datetime.now().strftime("%d %B %Y, %I:%M:%S %p"),
             "books": []
         })
