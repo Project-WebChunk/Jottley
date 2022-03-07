@@ -17,6 +17,12 @@
 		<button class="delete" onclick="deleteSnip()">Delete Snippet</button>
 		<button class="save" onclick="save()">Save Snippet</button>
 		<button class="rename" onclick="rename()">Rename Snippet</button>
+		<center>
+			<form action="/share/{{bookID}}/{{chapterID}}/{{snippet['_id']}}" method="post">
+				<h4>Expiry:</h4> <input type="date" name="time" id="date" required>
+				<button class="share" type="submit">Share Snippet</button>
+			</form>
+		</center>
 	</div>
 	<div class="container">
 		<div class="toolbar">
@@ -67,6 +73,16 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script>
+		window.addEventListener('load', () => {
+			var date = new Date();
+			//set date to date+5 days
+			date.setDate(date.getDate() + 5);
+			var currentDate = date.toISOString().slice(0,10);
+			var currentTime = date.getHours() + ':' + date.getMinutes();
+			document.getElementById('date').value = currentDate;
+			document.getElementById('date').min = currentDate;
+		});
+
         $("#content").each(function(){
             this.innerHTML = $(this).text();
         });

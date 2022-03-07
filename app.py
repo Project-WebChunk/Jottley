@@ -94,6 +94,18 @@ def snippet(bookID, chapterID, snippetID):
         snippet = database.getSnippet(bookID, chapterID, snippetID)
         return render_template('snippet.html', snippet=snippet, user=session['user'], bookID=bookID, chapterID=chapterID)
 
+@app.route('/share/<bookID>/<chapterID>/<snippetID>', methods=['POST'])
+def share(bookID, chapterID, snippetID):
+    if 'user' in session:
+        time = request.form['time']
+        shareID = database.share(session['user']['_id'], bookID, chapterID, snippetID, time)
+        return redirect(url_for('snip', shareID=shareID))
+    return redirect(url_for('home'))
+
+@app.route('/snip/<shareID>')
+def snip(shareID):
+    share = database.getShared(shareID)
+    return render_template('shared.html', snippet=share, user=session['user'])
 
 @app.route('/delete/<item>', methods=['POST'])
 def delete(item):
@@ -149,6 +161,9 @@ def edit(item):
             database.updateSnippet(bookID, chapterID, snippetID, name)
             return redirect(url_for('snippet', bookID=bookID, chapterID=chapterID, snippetID=snippetID))
     return redirect(url_for('home'))
+
+# @app.route("/snip/<id>")
+
 
 def handle_authorize(remote, token, user_info):
     if database.userExists(user_info['email']):

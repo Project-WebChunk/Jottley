@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/static/css/snippet.css">
+	<link rel="stylesheet" href="/static/css/shared.css">
+	<link rel="icon" href="/static/Jottley.png">
+	<title>ok</title>
+</head>
+<body>
+	<h1 class="title">
+		{{snippet['name']}}
+	</h1>
+	<div id="stuff">
+		{{snippet['content']}}
+	</div>
+	<script>
+		
+        $("#stuff").each(function(){
+            this.innerHTML = $(this).text();
+        });
+	</script>
+</body>
+</html>

@@ -11,6 +11,7 @@ class Database:
         self.db = self.client.Jottley
         self.users = self.db.users
         self.books = self.db.books
+        self.shared = self.db.shared
 
     def addUser(self, email):
         name = requests.get('http://names.drycodes.com/1').json()[0]
@@ -125,3 +126,21 @@ class Database:
 
     def updateBook(self, bookID, name):
         self.books.update_one({'_id': bookID}, {'$set': {'name': name}})
+        
+    def share(self, user, book, chapter, snip, time):
+        doc = {
+            "_id": "".join(random.choice("0123456789ABCDEF") for i in range(15)),
+            "path": [user, book, chapter, snip],
+            "valid": True,
+            "time": time
+        }
+        self.shared.insert_one(doc)
+        self.users.update_one({'_id': user}, {'$push': {'shared': doc['_id']}})
+        return doc['_id']
+    
+    def getShared(self, shareID):
+        doc = self.shared.find_one({'_id': shareID})
+        if doc:
+            snip = self.getSnippet(doc['path'][1], doc['path'][2], doc['path'][3])
+            return snip
+        return None
