@@ -105,7 +105,7 @@ def share(bookID, chapterID, snippetID):
 @app.route('/snip/<shareID>')
 def snip(shareID):
     share = database.getShared(shareID)
-    return render_template('shared.html', snippet=share, user=session['user'])
+    return render_template('shared.html', snippet=share)
 
 @app.route('/delete/<item>', methods=['POST'])
 def delete(item):
