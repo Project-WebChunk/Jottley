@@ -2,10 +2,25 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify, s
 from authlib.integrations.flask_client import OAuth
 from loginpass import create_flask_blueprint, Discord, Google
 from databases import Database
+import os
+from dotenv import load_dotenv
+
+if os.path.exists('.env'):
+    load_dotenv()
 
 app = Flask(__name__)
 oauth = OAuth(app)
-app.config.from_pyfile('config.py')
+
+config = {
+    "SECRET_KEY": os.getenv('SECRET_KEY'),
+    "DISCORD_CLIENT_ID": os.getenv('DISCORD_CLIENT_ID'),
+    "DISCORD_CLIENT_SECRET": os.getenv('DISCORD_CLIENT_SECRET'),
+    "GOOGLE_CLIENT_ID": os.getenv('GOOGLE_CLIENT_ID'),
+    "GOOGLE_CLIENT_SECRET": os.getenv('GOOGLE_CLIENT_SECRET'),
+    "MONGO_URI": os.getenv('MONGO_URI'),
+}
+
+app.config.from_mapping(config)
 backends = [Discord, Google]
 database = Database(app.config['MONGO_URI'])
 
